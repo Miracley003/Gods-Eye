@@ -1,15 +1,9 @@
 {
   "version": 2,
   "name": "gods-eye",
-  "builds": [
-    {
-      "src": "vite.config.js",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
   "routes": [
     {
       "src": "/(.*)",
@@ -19,8 +13,5 @@
   "env": {
     "VITE_APP_TITLE": "Gods Eye",
     "VITE_APP_DESCRIPTION": "Cross-Chain Wallet Forensics & Security"
-  },
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "installCommand": "npm install"
+  }
 }
