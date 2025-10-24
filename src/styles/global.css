@@ -1,4 +1,3 @@
-/* src/styles/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +5,8 @@
 @layer base {
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #000000;
+    color: #00ff41;
   }
 }
 
@@ -38,4 +39,19 @@
     linear-gradient(rgba(16, 185, 129, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(16, 185, 129, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
+}
+
+/* Glowing border effect */
+.glow-border {
+  box-shadow: 0 0 10px #00ff41, inset 0 0 10px #00ff41;
+}
+
+/* Matrix rain animation */
+@keyframes matrix-rain {
+  0% { transform: translateY(-100%); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.matrix-char {
+  animation: matrix-rain 3s linear infinite;
 }
