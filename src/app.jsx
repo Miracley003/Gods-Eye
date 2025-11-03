@@ -1,147 +1,85 @@
 // src/App.jsx
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import WalletConnect from './components/WalletConnect/WalletConnect';
-import Dashboard from './components/Dashboard/Dashboard';
-import MatrixBackground from './components/MatrixBackground';
-import './styles/globals.css';
-
-const GodsEyeLogo = () => (
-  <motion.div
-    className="relative w-24 h-24 mx-auto mb-8"
-    initial={{ scale: 0 }}
-    animate={{ scale: 1 }}
-    transition={{ duration: 1, type: "spring" }}
-  >
-    {/* Outer Ring */}
-    <motion.div
-      className="absolute inset-0 border-4 border-emerald-400 rounded-full"
-      animate={{ rotate: 360 }}
-      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-    />
-    
-    {/* Eye Container */}
-    <div className="absolute inset-4 bg-black rounded-full overflow-hidden">
-      {/* Matrix Grid Pattern */}
-      <div className="absolute inset-0 opacity-30">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="flex justify-between h-3">
-            {Array.from({ length: 8 }).map((_, j) => (
-              <motion.div
-                key={j}
-                className="w-3 h-3 bg-emerald-400 rounded-sm"
-                animate={{ opacity: [0.2, 1, 0.2] }}
-                transition={{
-                  duration: 2,
-                  delay: (i * 8 + j) * 0.1,
-                  repeat: Infinity,
-                }}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
-      
-      {/* Iris */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 w-12 h-12 bg-gradient-to-br from-emerald-400 to-purple-600 rounded-full transform -translate-x-1/2 -translate-y-1/2"
-        animate={{
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-        }}
-      />
-      
-      {/* Pupil */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 w-6 h-6 bg-black rounded-full transform -translate-x-1/2 -translate-y-1/2"
-        animate={{
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-        }}
-      />
-      
-      {/* Glare */}
-      <motion.div
-        className="absolute top-3 left-3 w-4 h-4 bg-white rounded-full opacity-40"
-        animate={{
-          x: [0, 2, 0],
-          y: [0, 2, 0],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-        }}
-      />
-    </div>
-  </motion.div>
-);
 
 function App() {
   const [wallet, setWallet] = useState(null);
-  const [analysis, setAnalysis] = useState(null);
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      <MatrixBackground />
+      {/* Simple matrix-like background */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="cyber-grid absolute inset-0"></div>
+      </div>
       
       <div className="relative z-10 container mx-auto px-4 py-8">
         {/* Header */}
-        <motion.header
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <GodsEyeLogo />
-          <motion.h1
-            className="text-6xl font-bold bg-gradient-to-r from-emerald-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent mb-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-          >
+        <header className="text-center mb-12">
+          <div className="relative w-24 h-24 mx-auto mb-8">
+            {/* Simple eye logo */}
+            <div className="absolute inset-0 border-4 border-emerald-400 rounded-full animate-pulse"></div>
+            <div className="absolute inset-4 bg-black rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-emerald-400 rounded-full"></div>
+            </div>
+          </div>
+          
+          <h1 className="text-6xl font-bold matrix-text mb-4">
             GODS EYE
-          </motion.h1>
-          <motion.p
-            className="text-xl text-gray-300 mb-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 1 }}
-          >
+          </h1>
+          <p className="text-xl text-gray-300 mb-8">
             Cross-Chain Wallet Forensics & Security
-          </motion.p>
-        </motion.header>
+          </p>
+        </header>
 
         {/* Main Content */}
-        <main className="max-w-6xl mx-auto">
+        <main className="max-w-4xl mx-auto bg-gray-900 bg-opacity-50 rounded-lg p-8 backdrop-blur-sm border border-emerald-400">
           {!wallet ? (
-            <WalletConnect onConnect={setWallet} />
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-emerald-400 mb-4">
+                Connect Your Wallet
+              </h2>
+              <p className="text-gray-300 mb-6">
+                To begin wallet analysis and security scanning
+              </p>
+              <button 
+                className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 glow-border"
+                onClick={() => setWallet('0x742...d35a')}
+              >
+                🔗 Connect Wallet
+              </button>
+            </div>
           ) : (
-            <Dashboard 
-              wallet={wallet} 
-              analysis={analysis}
-              onAnalysisComplete={setAnalysis}
-            />
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-emerald-400 mb-4">
+                Wallet Connected
+              </h2>
+              <p className="text-gray-300 mb-4">
+                Address: {wallet}
+              </p>
+              <div className="bg-black bg-opacity-50 rounded p-4 mb-6">
+                <p className="text-emerald-300">
+                  ✅ Ready for cross-chain analysis
+                </p>
+                <p className="text-gray-400 text-sm mt-2">
+                  Transaction history • Security scan • Forensic report
+                </p>
+              </div>
+              <button 
+                className="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-6 rounded transition-all"
+                onClick={() => setWallet(null)}
+              >
+                Disconnect
+              </button>
+            </div>
           )}
         </main>
 
         {/* Footer */}
-        <motion.footer
-          className="text-center mt-16 text-gray-500"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
-        >
+        <footer className="text-center mt-16 text-gray-500">
           <p>Built for Web3 Security • Always Require Your Signature</p>
           <p className="text-sm mt-2">
             Recipient: 0x259E...01a1 • Minimum Fee: $10 Equivalent
           </p>
-        </motion.footer>
+        </footer>
       </div>
     </div>
   );
